@@ -1,0 +1,184 @@
+# Aegis Lens — Master Category Tree
+# Machine-readable taxonomy: top → sub → micro.
+# Drives: filter UI, URL structure (/topics/<slug>), KG facets, SEO pages.
+#
+# Schema per node:
+#   slug:      URL-safe identifier (stable; never reuse)
+#   name_en:   English display name
+#   name_uk:   Ukrainian display name
+#   parent:    parent slug (null for top-level)
+#   synonyms:  alternate forms for matching (EN + UK)
+#
+# Governance: rename/merge/deprecate via services/auto-tagging governance.
+# "Taxonomy = filter UI + URL structure + KG facets. Lock early."
+
+version: "1.0"
+locale_priority: [en, uk]
+
+categories:
+  # ── 1. Military & Defense ──────────────────────────────────────────────────
+  - slug: military-defense
+    name_en: Military & Defense
+    name_uk: Військова справа та оборона
+    parent: null
+    synonyms: [military, defense, defence, війна, армія]
+    children:
+      - slug: drone-strikes
+        name_en: Drone Strikes
+        name_uk: Удари дронами
+        parent: military-defense
+        synonyms: [uav, drone, бпла, дрон, shahed, шахед]
+        children:
+          - { slug: loitering-munitions, name_en: Loitering Munitions, name_uk: Баражуючі боєприпаси, parent: drone-strikes, synonyms: [shahed-136, lancet, ланцет] }
+          - { slug: fpv-drones, name_en: FPV Drones, name_uk: FPV-дрони, parent: drone-strikes, synonyms: [fpv, kamikaze, камікадзе] }
+          - { slug: recon-drones, name_en: Reconnaissance Drones, name_uk: Розвідувальні дрони, parent: drone-strikes, synonyms: [orlan, орлан, zala] }
+      - slug: missile-strikes
+        name_en: Missile Strikes
+        name_uk: Ракетні удари
+        parent: military-defense
+        synonyms: [missile, ракета, rocket]
+        children:
+          - { slug: ballistic-missiles, name_en: Ballistic Missiles, name_uk: Балістичні ракети, parent: missile-strikes, synonyms: [iskander, іскандер] }
+          - { slug: cruise-missiles, name_en: Cruise Missiles, name_uk: Крилаті ракети, parent: missile-strikes, synonyms: [kalibr, калібр, kh-101] }
+          - { slug: hypersonic-missiles, name_en: Hypersonic Missiles, name_uk: Гіперзвукові ракети, parent: missile-strikes, synonyms: [kinzhal, кинджал] }
+      - slug: artillery
+        name_en: Artillery & Shelling
+        name_uk: Артилерія та обстріли
+        parent: military-defense
+        synonyms: [shelling, обстріл, mlrs, рсзо, grad]
+      - slug: airstrikes
+        name_en: Airstrikes
+        name_uk: Авіаудари
+        parent: military-defense
+        synonyms: [airstrike, авіаудар, glide bomb, фаб]
+      - slug: ground-combat
+        name_en: Ground Combat
+        name_uk: Наземні бої
+        parent: military-defense
+        synonyms: [offensive, наступ, advance, retreat, відступ]
+      - slug: air-defense
+        name_en: Air Defense
+        name_uk: Протиповітряна оборона
+        parent: military-defense
+        synonyms: [ppo, ппо, patriot, interception, перехоплення]
+
+  # ── 2. Infrastructure ──────────────────────────────────────────────────────
+  - slug: infrastructure
+    name_en: Infrastructure
+    name_uk: Інфраструктура
+    parent: null
+    synonyms: [infrastructure, інфраструктура]
+    children:
+      - slug: energy
+        name_en: Energy
+        name_uk: Енергетика
+        parent: infrastructure
+        synonyms: [power, electricity, енергетика, електро]
+        children:
+          - { slug: power-plants, name_en: Power Plants, name_uk: Електростанції, parent: energy, synonyms: [tpp, тес, aes, аес] }
+          - { slug: substations, name_en: Substations, name_uk: Підстанції, parent: energy, synonyms: [substation, підстанція, transformer] }
+          - { slug: power-outages, name_en: Power Outages, name_uk: Відключення електроенергії, parent: energy, synonyms: [blackout, знеструмлення] }
+      - slug: transport
+        name_en: Transport
+        name_uk: Транспорт
+        parent: infrastructure
+        synonyms: [transport, транспорт]
+        children:
+          - { slug: bridges, name_en: Bridges, name_uk: Мости, parent: transport, synonyms: [bridge, міст] }
+          - { slug: railways, name_en: Railways, name_uk: Залізниці, parent: transport, synonyms: [railway, залізниця, train] }
+      - slug: telecom
+        name_en: Telecommunications
+        name_uk: Телекомунікації
+        parent: infrastructure
+        synonyms: [telecom, internet, зв'язок, comms]
+      - slug: water-supply
+        name_en: Water Supply
+        name_uk: Водопостачання
+        parent: infrastructure
+        synonyms: [water, водоканал, waterworks]
+
+  # ── 3. Cyber ───────────────────────────────────────────────────────────────
+  - slug: cyber
+    name_en: Cyber
+    name_uk: Кібербезпека
+    parent: null
+    synonyms: [cyber, кібер, hacking]
+    children:
+      - { slug: cyberattacks, name_en: Cyberattacks, name_uk: Кібератаки, parent: cyber, synonyms: [ddos, hack, malware] }
+      - { slug: data-breaches, name_en: Data Breaches, name_uk: Витоки даних, parent: cyber, synonyms: [leak, breach, витік] }
+      - { slug: comms-outage, name_en: Comms Outage, name_uk: Відключення зв'язку, parent: cyber, synonyms: [internet shutdown, netblocks] }
+
+  # ── 4. Humanitarian ────────────────────────────────────────────────────────
+  - slug: humanitarian
+    name_en: Humanitarian
+    name_uk: Гуманітарна ситуація
+    parent: null
+    synonyms: [humanitarian, гуманітарний]
+    children:
+      - { slug: displacement, name_en: Displacement, name_uk: Переміщення, parent: humanitarian, synonyms: [refugees, idp, біженці] }
+      - { slug: evacuation, name_en: Evacuation, name_uk: Евакуація, parent: humanitarian, synonyms: [evac, евакуація] }
+      - { slug: casualties, name_en: Casualties, name_uk: Жертви, parent: humanitarian, synonyms: [killed, wounded, загиблі] }
+      - { slug: aid-delivery, name_en: Aid Delivery, name_uk: Гуманітарна допомога, parent: humanitarian, synonyms: [aid, допомога] }
+
+  # ── 5. Maritime ────────────────────────────────────────────────────────────
+  - slug: maritime
+    name_en: Maritime
+    name_uk: Морська справа
+    parent: null
+    synonyms: [maritime, naval, морський, флот]
+    children:
+      - { slug: naval-strikes, name_en: Naval Strikes, name_uk: Морські удари, parent: maritime, synonyms: [warship, корабель, fleet] }
+      - { slug: shadow-fleet, name_en: Shadow Fleet, name_uk: Тіньовий флот, parent: maritime, synonyms: [sanctions evasion, tanker, танкер] }
+      - { slug: grain-corridor, name_en: Grain Corridor, name_uk: Зерновий коридор, parent: maritime, synonyms: [grain, зерно, black sea] }
+
+  # ── 6. Aviation ────────────────────────────────────────────────────────────
+  - slug: aviation
+    name_en: Aviation
+    name_uk: Авіація
+    parent: null
+    synonyms: [aviation, aircraft, авіація, літак]
+    children:
+      - { slug: military-flights, name_en: Military Flights, name_uk: Військові польоти, parent: aviation, synonyms: [adsb, bomber, бомбардувальник] }
+      - { slug: airspace-closures, name_en: Airspace Closures, name_uk: Закриття повітряного простору, parent: aviation, synonyms: [notam, airspace] }
+
+  # ── 7. Politics & Diplomacy ────────────────────────────────────────────────
+  - slug: politics-diplomacy
+    name_en: Politics & Diplomacy
+    name_uk: Політика та дипломатія
+    parent: null
+    synonyms: [politics, diplomacy, політика, дипломатія]
+    children:
+      - { slug: negotiations, name_en: Negotiations, name_uk: Перемовини, parent: politics-diplomacy, synonyms: [talks, peace, перемовини] }
+      - { slug: international-aid, name_en: International Aid, name_uk: Міжнародна допомога, parent: politics-diplomacy, synonyms: [military aid, weapons package] }
+
+  # ── 8. Economy & Sanctions ─────────────────────────────────────────────────
+  - slug: economy-sanctions
+    name_en: Economy & Sanctions
+    name_uk: Економіка та санкції
+    parent: null
+    synonyms: [economy, sanctions, економіка, санкції]
+    children:
+      - { slug: sanctions, name_en: Sanctions, name_uk: Санкції, parent: economy-sanctions, synonyms: [sanction, ofac, санкції] }
+      - { slug: energy-markets, name_en: Energy Markets, name_uk: Енергоринки, parent: economy-sanctions, synonyms: [oil, gas, нафта, газ] }
+
+  # ── 9. Information Environment ─────────────────────────────────────────────
+  - slug: information-environment
+    name_en: Information Environment
+    name_uk: Інформаційний простір
+    parent: null
+    synonyms: [information, info ops, інформаційний]
+    children:
+      - { slug: disinformation, name_en: Disinformation, name_uk: Дезінформація, parent: information-environment, synonyms: [fake, propaganda, фейк, дезінформація] }
+      - { slug: narrative-tracking, name_en: Narrative Tracking, name_uk: Відстеження наративів, parent: information-environment, synonyms: [narrative, наратив] }
+
+  # ── 10. Environment & Climate ──────────────────────────────────────────────
+  - slug: environment-climate
+    name_en: Environment & Climate
+    name_uk: Довкілля та клімат
+    parent: null
+    synonyms: [environment, climate, довкілля, екологія]
+    children:
+      - { slug: fires, name_en: Fires, name_uk: Пожежі, parent: environment-climate, synonyms: [fire, wildfire, пожежа] }
+      - { slug: flooding, name_en: Flooding, name_uk: Затоплення, parent: environment-climate, synonyms: [flood, dam, затоплення, гребля] }
+      - { slug: radiation, name_en: Radiation Risk, name_uk: Радіаційна небезпека, parent: environment-climate, synonyms: [nuclear, radiation, радіація] }
+      - { slug: chemical-hazard, name_en: Chemical Hazard, name_uk: Хімічна небезпека, parent: environment-climate, synonyms: [chemical, хімічна] }

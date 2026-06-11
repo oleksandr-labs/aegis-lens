@@ -1,0 +1,18 @@
+{
+  "name": "@ua-map/geo",
+  "version": "1.0.0",
+  "description": "Geolocation service — forward/reverse geocoding, coord parsing, AOI lookup.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@ua-map/huggingface",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "description": "HuggingFace inference API + self-hosted endpoint client for vision and OCR tasks"
+}

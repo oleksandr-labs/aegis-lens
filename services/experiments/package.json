@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/experiments",
+  "version": "1.0.0",
+  "description": "A/B and multivariate experiment platform — variant assignment, lifecycle management, holdout cohorts.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

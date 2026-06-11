@@ -1,0 +1,24 @@
+{
+  "name": "@aegis/plugin-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK for building Aegis Lens plugins — typed manifests, host API bridge, scoped permission model.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "keywords": ["aegis", "plugin", "sdk", "osint"],
+  "license": "MIT"
+}

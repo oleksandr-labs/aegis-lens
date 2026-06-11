@@ -1,0 +1,10 @@
+apiVersion: v2
+name: aegis-web
+description: Aegis Lens web application (Next.js)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords: [aegis, osint, nextjs, ukraine]
+maintainers:
+  - name: Aegis Platform Team
+    email: platform@aegislens.com

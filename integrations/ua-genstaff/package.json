@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/ua-genstaff",
+  "version": "1.0.0",
+  "description": "Official Ukrainian military communications ingestion — General Staff (Генеральний штаб ЗСУ) daily summaries, MoD (mod.gov.ua) press releases, Air Force Command (Повітряні Сили) and Navy Command Telegram, and per-branch spokespersons. Structured daily-summary parsing, press-release NER+KG enrichment, air-alert correlation, official-vs-OSINT divergence detection, and event provenance citation. Highest-trust official tier; neutral, non-editorialised framing. Maps to canonical Event v1.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

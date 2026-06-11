@@ -1,0 +1,8 @@
+from,to,status,created_at,reason
+/old-pricing,/pricing,301,2026-01-10,Page renamed for clarity
+/blog/legacy-intro,/blog/intro,301,2026-02-02,Slug normalized to primary keyword
+/uk/stara-tsina,/uk/pricing,301,2026-01-10,UK localized counterpart of /old-pricing
+/tools/deprecated-classifier,/tools/classifier,301,2026-03-15,Consolidated duplicate template
+/promo-2025,,410,2026-04-01,Seasonal campaign retired; no replacement
+/uk/aktsiia-2025,,410,2026-04-01,UK seasonal campaign retired; no replacement
+/temporary-maintenance,/status,302,2026-05-20,Temporary pointer during incident window

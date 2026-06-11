@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/acled-gdelt",
+  "version": "1.0.0",
+  "description": "Academic event-dataset ingestion for Aegis Lens — ACLED, GDELT (BigQuery) and UCDP. Powers trend pages, the datasets catalog and per-page citations. License-gated; not a map layer.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

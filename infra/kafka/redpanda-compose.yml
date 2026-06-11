@@ -1,0 +1,112 @@
+# Redpanda — Kafka-compatible message broker for local development.
+#
+# Redpanda is a drop-in Kafka replacement with a simpler operational model
+# (no ZooKeeper, no JVM) and a built-in web console.
+#
+# Exposes:
+#   9092 — Kafka API (producer/consumer clients)
+#   9644 — Redpanda Admin API (HTTP)
+#   8080 — Redpanda Console (web UI at http://localhost:8080)
+#
+# Usage:
+#   docker compose -f infra/kafka/redpanda-compose.yml up -d
+#
+# Set in your .env.local:
+#   KAFKA_BOOTSTRAP_SERVERS=localhost:9092
+#
+# Редпанда: Kafka-сумісний брокер повідомлень для локальної розробки.
+
+version: "3.8"
+
+networks:
+  redpanda_net:
+    driver: bridge
+
+volumes:
+  redpanda_data:
+
+services:
+  # ── Single-broker Redpanda ────────────────────────────────────────────────
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.2
+    container_name: redpanda-aegis
+    restart: unless-stopped
+    networks:
+      - redpanda_net
+    volumes:
+      - redpanda_data:/var/lib/redpanda/data
+    ports:
+      - "9092:9092"   # Kafka API
+      - "9644:9644"   # Admin API
+      - "18081:18081" # Schema Registry (Redpanda built-in)
+    command:
+      - redpanda
+      - start
+      - --kafka-addr=internal://0.0.0.0:19092,external://0.0.0.0:9092
+      - --advertise-kafka-addr=internal://redpanda:19092,external://localhost:9092
+      - --pandaproxy-addr=internal://0.0.0.0:18082,external://0.0.0.0:8082
+      - --advertise-pandaproxy-addr=internal://redpanda:18082,external://localhost:8082
+      - --schema-registry-addr=internal://0.0.0.0:18081,external://0.0.0.0:18081
+      - --rpc-addr=redpanda:33145
+      - --advertise-rpc-addr=redpanda:33145
+      - --smp=1
+      - --memory=512M
+      - --mode=dev-container
+      - --default-log-level=warn
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # ── Redpanda Console (web UI) ─────────────────────────────────────────────
+  redpanda-console:
+    image: docker.redpanda.com/redpandadata/console:v2.7.0
+    container_name: redpanda-console-aegis
+    restart: unless-stopped
+    networks:
+      - redpanda_net
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKERS: "redpanda:19092"
+      KAFKA_SCHEMAREGISTRY_ENABLED: "true"
+      KAFKA_SCHEMAREGISTRY_URLS: "http://redpanda:18081"
+    depends_on:
+      redpanda:
+        condition: service_healthy
+
+  # ── Topic bootstrap (runs once) ───────────────────────────────────────────
+  # Creates the topics needed by Aegis Lens services on first start.
+  redpanda-init:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.2
+    container_name: redpanda-init-aegis
+    networks:
+      - redpanda_net
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -e
+        BROKER=redpanda:19092
+
+        echo "Creating Aegis Lens topics..."
+
+        rpk topic create aegis.events.raw        --brokers=$BROKER --partitions=6 --replicas=1 --topic-config=retention.ms=604800000
+        rpk topic create aegis.events.verified   --brokers=$BROKER --partitions=6 --replicas=1 --topic-config=retention.ms=604800000
+        rpk topic create aegis.events.retracted  --brokers=$BROKER --partitions=3 --replicas=1 --topic-config=retention.ms=604800000
+        rpk topic create aegis.alerts.triggered  --brokers=$BROKER --partitions=3 --replicas=1 --topic-config=retention.ms=259200000
+        rpk topic create aegis.alerts.resolved   --brokers=$BROKER --partitions=3 --replicas=1 --topic-config=retention.ms=259200000
+        rpk topic create aegis.aois.entered      --brokers=$BROKER --partitions=3 --replicas=1
+        rpk topic create aegis.aois.exited       --brokers=$BROKER --partitions=3 --replicas=1
+        rpk topic create aegis.ingest.raw        --brokers=$BROKER --partitions=12 --replicas=1 --topic-config=retention.ms=86400000
+        rpk topic create aegis.reports.ready     --brokers=$BROKER --partitions=2 --replicas=1 --topic-config=retention.ms=604800000
+        rpk topic create aegis.email.bounce      --brokers=$BROKER --partitions=2 --replicas=1
+        rpk topic create aegis.email.complaint   --brokers=$BROKER --partitions=2 --replicas=1
+
+        echo "Topics created successfully."
+        rpk topic list --brokers=$BROKER
+    restart: "no"

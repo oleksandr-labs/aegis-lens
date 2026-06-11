@@ -1,0 +1,17 @@
+{
+  "name": "@ua-map/vk-ok",
+  "version": "1.0.0",
+  "description": "VK and Odnoklassniki public group posts — read-only, public data only.",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/ingest": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/integration-power-outages",
+  "version": "1.0.0",
+  "description": "Power outage detection — multi-signal fusion (Ukrenergo schedule, Cloudflare Radar, community reports, VIIRS night lights).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

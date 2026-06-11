@@ -1,0 +1,137 @@
+# ---------------------------------------------------------------------------
+# Vector configuration — Aegis Lens observability pipeline
+# Reads structured JSON logs from app + K8s, ships to Loki and/or OpenSearch.
+# ---------------------------------------------------------------------------
+
+data_dir: /var/lib/vector
+
+sources:
+  # Tail JSON log files written by the Next.js app (stdout captured by systemd/docker)
+  app_logs_file:
+    type: file
+    include:
+      - /var/log/aegis-web/*.log
+      - /var/log/aegis-web/**/*.log
+    read_from: end
+    line_delimiter: "\n"
+
+  # HTTP endpoint that the Node.js logger pushes to directly
+  http_source:
+    type: http_server
+    address: "0.0.0.0:8686"
+    path: /logs
+    encoding:
+      codec: json
+
+  # Kubernetes pod logs (no-op outside K8s — Vector skips unavailable sources gracefully)
+  kubernetes_logs:
+    type: kubernetes_logs
+    extra_label_selector: "app.kubernetes.io/name=aegis-web"
+
+transforms:
+  # Parse raw JSON strings coming from file source
+  parse_app_json:
+    type: remap
+    inputs:
+      - app_logs_file
+    source: |
+      . = parse_json!(.message) ?? .
+      .ingested_at = now()
+
+  # Merge all sources and enrich with service metadata
+  enrich_all:
+    type: remap
+    inputs:
+      - parse_app_json
+      - http_source
+      - kubernetes_logs
+    source: |
+      .service = "aegis-web"
+      .env     = get_env_var("DEPLOY_ENV") ?? "production"
+      .host    = get_hostname() ?? "unknown"
+      # Ensure timestamp field exists
+      if !exists(.timestamp) {
+        .timestamp = to_string(now())
+      }
+      # Normalise level field
+      if exists(.level) {
+        .level = upcase(string!(.level))
+      }
+
+  # Route CRITICAL / ERROR entries to a dedicated high-priority stream
+  route_by_severity:
+    type: route
+    inputs:
+      - enrich_all
+    route:
+      high_severity: '.level == "CRITICAL" || .level == "ERROR"'
+      standard: '.level != "CRITICAL" && .level != "ERROR"'
+
+sinks:
+  # ---------------------------------------------------------------------------
+  # Grafana Loki
+  # ---------------------------------------------------------------------------
+  loki_standard:
+    type: loki
+    inputs:
+      - route_by_severity.standard
+    endpoint: "${LOKI_ENDPOINT:-http://loki:3100}"
+    labels:
+      service: "{{ service }}"
+      env: "{{ env }}"
+      level: "{{ level }}"
+    encoding:
+      codec: json
+    batch:
+      max_bytes: 1_048_576   # 1 MB
+      timeout_secs: 5
+    out_of_order_action: accept
+
+  loki_high_severity:
+    type: loki
+    inputs:
+      - route_by_severity.high_severity
+    endpoint: "${LOKI_ENDPOINT:-http://loki:3100}"
+    labels:
+      service: "{{ service }}"
+      env: "{{ env }}"
+      level: "{{ level }}"
+      priority: high
+    encoding:
+      codec: json
+    batch:
+      max_bytes: 524_288    # 0.5 MB — flush faster for errors
+      timeout_secs: 1
+    out_of_order_action: accept
+
+  # ---------------------------------------------------------------------------
+  # OpenSearch (optional — enabled when OPENSEARCH_ENDPOINT is set)
+  # ---------------------------------------------------------------------------
+  opensearch_sink:
+    type: elasticsearch
+    inputs:
+      - enrich_all
+    endpoints:
+      - "${OPENSEARCH_ENDPOINT:-http://opensearch:9200}"
+    index: "aegis-logs-%Y.%m.%d"
+    auth:
+      strategy: basic
+      user: "${OPENSEARCH_USER:-admin}"
+      password: "${OPENSEARCH_PASSWORD:-admin}"
+    encoding:
+      codec: json
+    batch:
+      max_bytes: 10_485_760  # 10 MB
+      timeout_secs: 10
+    # Only active when OPENSEARCH_ENDPOINT env var is explicitly provided
+    healthcheck:
+      enabled: true
+
+  # Console sink for local development / debugging
+  console_debug:
+    type: console
+    inputs:
+      - enrich_all
+    target: stdout
+    encoding:
+      codec: json

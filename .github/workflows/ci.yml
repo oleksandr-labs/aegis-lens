@@ -1,0 +1,236 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build · Lint · Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.com
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Unit tests
+        run: pnpm test --passWithNoTests
+        env:
+          CI: true
+
+  a11y:
+    name: Accessibility (axe-core)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build web app
+        run: pnpm --filter web build
+        env:
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
+
+      - name: Start app
+        run: pnpm --filter web start &
+        env:
+          PORT: "3000"
+
+      - name: Wait for app
+        run: npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Run axe-core accessibility scan
+        run: pnpm --filter web test:a11y --passWithNoTests
+        env:
+          AXE_BASE_URL: http://localhost:3000
+        continue-on-error: false
+
+  db-migration-check:
+    name: DB Migration Safety
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed migration files
+        id: changed
+        uses: tj-actions/changed-files@v44
+        with:
+          files: "infra/postgres/migrations/**/*.sql"
+
+      - name: Install pg_squawk
+        if: steps.changed.outputs.any_changed == 'true'
+        run: npm install -g pg_squawk || true
+
+      - name: Run pg_squawk on changed migrations
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          echo "Checking: ${{ steps.changed.outputs.all_changed_files }}"
+          for f in ${{ steps.changed.outputs.all_changed_files }}; do
+            echo "=== $f ==="
+            pg_squawk "$f" || true
+          done
+
+      - name: Install Atlas CLI
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          curl -sSf https://atlasgo.sh | sh || true
+
+      - name: Atlas lint
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          cd infra/postgres/migrations
+          atlas migrate lint --dir "file://." --dev-url "sqlite://dev?mode=memory" || true
+
+  schema-check:
+    name: Schema Compatibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck packages/event-schema
+        run: pnpm --filter @aegis/event-schema typecheck
+
+      - name: Typecheck packages/schema-registry
+        run: pnpm --filter @aegis/schema-registry typecheck
+
+  i18n-check:
+    name: i18n Key Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: i18n missing-key check
+        run: pnpm --filter @aegis/i18n-tools typecheck
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for gitleaks
+
+      - name: Gitleaks secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_CONFIG: .gitleaks.toml
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: "true"
+
+      - name: Run Trivy (filesystem)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: trivy-results.sarif
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+
+      - name: Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif

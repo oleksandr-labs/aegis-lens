@@ -1,0 +1,7 @@
+{
+  "404.title": "Not found",
+  "404.body": "The page you're looking for doesn't exist or was retired.",
+  "404.home": "Back to home",
+  "500.title": "Something broke",
+  "500.body": "We've logged the issue. Try again in a moment."
+}

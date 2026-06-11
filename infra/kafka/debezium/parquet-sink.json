@@ -1,0 +1,46 @@
+{
+  "_comment": "S3 Parquet sink connector — archives CDC events to cold storage",
+
+  "name": "aegis-s3-parquet-sink",
+  "config": {
+    "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+
+    "tasks.max": "4",
+    "topics.regex": "aegis.cdc.*",
+
+    "s3.region": "eu-central-1",
+    "s3.bucket.name": "${env:CDC_ARCHIVE_BUCKET}",
+    "s3.part.size": "67108864",
+    "s3.ssea.name": "AES256",
+
+    "s3.object.tagging": "true",
+    "s3.object.tags": "project=aegis,env=${env:ENV},team=data-eng",
+
+    "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+    "format.class": "io.confluent.connect.s3.format.parquet.ParquetFormat",
+    "parquet.codec": "snappy",
+
+    "flush.size": "50000",
+    "rotate.interval.ms": "3600000",
+    "rotate.schedule.interval.ms": "3600000",
+    "timestamp.extractor": "RecordField",
+    "timestamp.field": "ts_ms",
+
+    "locale": "en_US",
+    "timezone": "UTC",
+
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "path.format": "'dt='YYYY-MM-dd'/hour='HH",
+    "partition.duration.ms": "3600000",
+    "locale": "en_US",
+
+    "s3.schema.compatibility": "FULL",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "true",
+
+    "behavior.on.malformed.documents": "warn",
+    "behavior.on.null.values": "ignore"
+  }
+}

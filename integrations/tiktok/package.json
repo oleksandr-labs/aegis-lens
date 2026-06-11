@@ -1,0 +1,17 @@
+{
+  "name": "@ua-map/tiktok",
+  "version": "1.0.0",
+  "description": "TikTok Research API integration — public posts only, ethically scoped.",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/ingest": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

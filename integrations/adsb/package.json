@@ -1,0 +1,14 @@
+{
+  "name": "@ua-map/integration-adsb",
+  "version": "1.0.0",
+  "description": "ADS-B aviation tracking integration (OpenSky Network + aircraft database).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc", "test": "vitest run" },
+  "dependencies": {
+    "@ua-map/ingest": "workspace:*",
+    "@ua-map/schema": "workspace:*",
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": { "typescript": "^5.4.5", "vitest": "^1.6.0" }
+}

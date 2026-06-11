@@ -1,0 +1,18 @@
+{
+  "name": "@ua-map/modis-viirs",
+  "version": "1.0.0",
+  "description": "NASA FIRMS extended — MODIS NRT and VIIRS I-Band 375m thermal/fire data.",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/ingest": "workspace:*",
+    "@ua-map/integration-nasa-firms": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Жива карта",
+  "placeholder.title": "Робочий простір карти — скелет",
+  "placeholder.body": "Поверхня готова до Mapbox. Додайте NEXT_PUBLIC_MAPBOX_TOKEN у .env.local, щоб увімкнути базовий шар. Шари, фільтри, тайм-лінія, AI-копілот — у Sprint 1.",
+  "layers.title": "Шари",
+  "filters.title": "Фільтри",
+  "copilot.title": "AI-копілот"
+}

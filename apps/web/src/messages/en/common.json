@@ -1,0 +1,20 @@
+{
+  "nav.map": "Live Map",
+  "nav.companies": "Companies",
+  "nav.tools": "Tools",
+  "nav.reports": "Reports",
+  "nav.briefs": "Intelligence Briefs",
+  "nav.pricing": "Pricing",
+  "nav.docs": "Docs",
+  "nav.about": "About",
+  "nav.signin": "Sign in",
+  "nav.signup": "Sign up",
+
+  "footer.product": "Product",
+  "footer.resources": "Resources",
+  "footer.company": "Company",
+  "footer.legal": "Legal",
+  "footer.trust": "Trust",
+  "footer.copyright": "© {year} Aegis Lens. All rights reserved.",
+  "footer.tagline": "Intelligence at the speed of events."
+}

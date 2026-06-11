@@ -1,0 +1,15 @@
+{
+  "name": "@ua-map/layers",
+  "version": "1.0.0",
+  "description": "Map layer registry — catalog, styling config, legend, access tiers.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

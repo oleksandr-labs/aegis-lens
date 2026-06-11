@@ -1,0 +1,18 @@
+{
+  "name": "@ua-map/verify",
+  "version": "1.0.0",
+  "description": "Verification service — state machine, confidence model, audit log.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

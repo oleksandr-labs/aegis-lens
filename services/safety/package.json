@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/safety",
+  "version": "1.0.0",
+  "description": "Copilot guardrails, abuse heuristics, and misuse prevention for the Aegis Lens platform.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

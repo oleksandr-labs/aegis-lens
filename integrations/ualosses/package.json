@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/ualosses",
+  "version": "1.0.0",
+  "description": "Verified casualty tracking (UALosses / Killed in Ukraine / Mediazona) — AGGREGATE-ONLY by design. Per-person data is blocked fail-closed; dignity over engagement; take-down on family request.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

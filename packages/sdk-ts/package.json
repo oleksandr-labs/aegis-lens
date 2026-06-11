@@ -1,0 +1,26 @@
+{
+  "name": "@aegis/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the Aegis Lens API — typed client for events, sources, reports, search, and copilot.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "keywords": ["aegis", "osint", "ukraine", "conflict", "api"],
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

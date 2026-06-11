@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme CSS variables ───────────────────────────────────────────────────── */
+
+/* Default (dark) theme */
+:root {
+  --bg-base: #0a0a0f;
+  --bg-surface: #111118;
+  --bg-elevated: #16161f;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+  --border-subtle: #1e2030;
+  --border-default: #252836;
+  --accent: #4ea1ff;
+  --accent-hover: #60b0ff;
+}
+
+/* Tactical theme */
+[data-theme="tactical"] {
+  --bg-base: #050810;
+  --bg-surface: #0a0d1a;
+  --bg-elevated: #0f1420;
+  --text-primary: #e2f4e8;
+  --text-secondary: #7ea88a;
+  --text-muted: #3d5c44;
+  --border-subtle: #1a2820;
+  --border-default: #243530;
+  --accent: #00e87a;
+  --accent-hover: #22ff90;
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-subtle: #e2e8f0;
+  --border-default: #cbd5e1;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html,
+body {
+  height: 100%;
+  background-color: theme("colors.bg.base");
+  color: theme("colors.text.primary");
+  font-family: theme("fontFamily.sans");
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: theme("colors.accent.DEFAULT");
+  color: #000;
+}
+
+/* ── View Transitions API ──────────────────────────────────────────────────── */
+::view-transition-old(root) {
+  animation: 200ms ease-out fade-out;
+}
+::view-transition-new(root) {
+  animation: 200ms ease-in fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Reduced motion: disable all animations ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ── Layer fade-in when toggled ────────────────────────────────────────────── */
+.layer-fade-in {
+  animation: layer-appear 300ms ease-out forwards;
+}
+@keyframes layer-appear {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Alert escalation animation ────────────────────────────────────────────── */
+@keyframes alert-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+.alert-critical {
+  animation: alert-pulse 2s ease-in-out infinite;
+}
+
+/* ── Radar/scan sweep animation ────────────────────────────────────────────── */
+@keyframes radar-sweep {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.radar-sweep {
+  animation: radar-sweep 2s linear infinite;
+}
+
+/* ── Skeleton shimmer ───────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ── Stagger animation for lists ───────────────────────────────────────────── */
+.stagger-children > * {
+  animation: stagger-in 300ms ease-out both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Live event arrival ripple ──────────────────────────────────────────────── */
+@keyframes event-ripple {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.event-ripple {
+  animation: event-ripple 1s ease-out forwards;
+}

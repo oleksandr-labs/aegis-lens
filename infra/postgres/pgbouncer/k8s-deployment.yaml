@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgbouncer
+  namespace: aegis-platform
+  labels:
+    app: pgbouncer
+    tier: database
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pgbouncer
+  template:
+    metadata:
+      labels:
+        app: pgbouncer
+      annotations:
+        # Force pod restart when secrets change
+        secret-hash: "{{ .Values.secretHash }}"
+    spec:
+      affinity:
+        # Spread across AZs
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values: [pgbouncer]
+                topologyKey: topology.kubernetes.io/zone
+
+      containers:
+        - name: pgbouncer
+          image: aegis-pgbouncer:1.22.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6432
+              name: pgbouncer
+
+          env:
+            - name: POSTGRES_HOST_PRIMARY
+              valueFrom:
+                secretKeyRef:
+                  name: aegis-db-secrets
+                  key: primary_host
+            - name: POSTGRES_HOST_REPLICA
+              valueFrom:
+                secretKeyRef:
+                  name: aegis-db-secrets
+                  key: replica_host
+            - name: PGBOUNCER_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: aegis-db-secrets
+                  key: pgbouncer_admin_password
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          livenessProbe:
+            tcpSocket:
+              port: 6432
+            initialDelaySeconds: 10
+            periodSeconds: 30
+
+          readinessProbe:
+            tcpSocket:
+              port: 6432
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          volumeMounts:
+            - name: pgbouncer-config
+              mountPath: /etc/pgbouncer
+              readOnly: true
+
+      volumes:
+        - name: pgbouncer-config
+          projected:
+            sources:
+              - configMap:
+                  name: pgbouncer-config
+              - secret:
+                  name: pgbouncer-userlist
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgbouncer
+  namespace: aegis-platform
+  labels:
+    app: pgbouncer
+spec:
+  selector:
+    app: pgbouncer
+  ports:
+    - port: 6432
+      targetPort: 6432
+      name: pgbouncer
+  type: ClusterIP

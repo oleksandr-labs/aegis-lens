@@ -1,0 +1,55 @@
+name: "aegis_lens"
+version: "1.0.0"
+config-version: 2
+
+profile: "aegis_lens"
+
+model-paths:    ["models"]
+analysis-paths: ["analyses"]
+test-paths:     ["tests"]
+seed-paths:     ["seeds"]
+macro-paths:    ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+# Layer ownership
+models:
+  aegis_lens:
+    raw:
+      +schema: raw
+      +materialized: view
+      +tags: ["raw"]
+      +owner: "data-eng"
+    staging:
+      +schema: staging
+      +materialized: view
+      +tags: ["staging"]
+      +owner: "data-eng"
+    intermediate:
+      +schema: intermediate
+      +materialized: ephemeral
+      +tags: ["intermediate"]
+      +owner: "data-eng"
+    marts:
+      events:
+        +schema: marts_events
+        +materialized: table
+        +tags: ["mart", "events"]
+        +owner: "platform"
+      regions:
+        +schema: marts_regions
+        +materialized: table
+        +tags: ["mart", "regions"]
+        +owner: "platform"
+      users:
+        +schema: marts_users
+        +materialized: table
+        +tags: ["mart", "users"]
+        +owner: "product"
+      intelligence:
+        +schema: marts_intelligence
+        +materialized: table
+        +tags: ["mart", "intelligence"]
+        +owner: "ai"

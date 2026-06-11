@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/alerts-in-ua",
+  "version": "1.0.0",
+  "description": "alerts.in.ua air-raid alert ingestion — lowest-latency P0 feed (primary API + Telegram fallbacks). Complements @ua-map/civilian-alerts (UkraineAlarm).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

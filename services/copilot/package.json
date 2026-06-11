@@ -1,0 +1,10 @@
+{
+  "name": "@ua-map/copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Aegis Lens AI analyst copilot core: hybrid retrieval (RAG + lexical), per-case-file conversation memory, grounding/citation enforcement, and an eval suite (factuality, citation accuracy, refusal coverage).",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": { "typecheck": "tsc --noEmit" },
+  "devDependencies": { "typescript": "^5.4.5" }
+}

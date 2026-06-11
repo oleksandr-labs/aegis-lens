@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/llm-providers",
+  "version": "1.0.0",
+  "description": "Multi-provider LLM abstraction for Aegis Lens — Anthropic Claude (primary), OpenAI (failover + specialty), open-weights (HuggingFace / self-hosted vLLM, sovereignty fallback). Unified LlmProvider interface: complete / stream / tool-calling, provider-agnostic streaming, cross-provider tool spec, prompt caching, per-provider×feature cost tracking, per-tenant BYOK, cross-provider eval parity, fail-closed PII pre-send redaction, and provider-outage failover routing. Never single-provider (concentration + ToS-volatility risk).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

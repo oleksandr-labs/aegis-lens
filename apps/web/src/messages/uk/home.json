@@ -1,0 +1,41 @@
+{
+  "hero.eyebrow": "AI-нативна OSINT-розвідка",
+  "hero.title": "Бачте, що відбувається. Верифікуйте першими.",
+  "hero.subtitle": "Aegis Lens агрегує, верифікує та візуалізує конфліктну, інфраструктурну та геополітичну розвідку в реальному часі — починаючи з України, з масштабуванням на весь світ.",
+  "hero.cta_primary": "Відкрити карту",
+  "hero.cta_secondary": "Запит на демо для Enterprise",
+
+  "trust.ingested": "Подій оброблено сьогодні",
+  "trust.sources": "Джерел під моніторингом",
+  "trust.countries": "Країн покрито",
+
+  "how.title": "Як це працює",
+  "how.step1_title": "Збір",
+  "how.step1_body": "Публічні джерела — Telegram, супутник, AIS, ADS-B, новини — приведено до єдиного канонічного потоку подій.",
+  "how.step2_title": "Верифікація",
+  "how.step2_body": "AI-узагальнення з цитуванням джерел. Перехресна корроборація. Людина-в-петлі для високовпливових подій.",
+  "how.step3_title": "Візуалізація",
+  "how.step3_body": "Кінематографічна карта з 15+ шарами, тайм-лінією, AI-копілотом і постійним посиланням на кожну подію.",
+
+  "personas.title": "Створено для тих, кому це справді потрібно",
+  "personas.civilians": "Цивільні",
+  "personas.journalists": "Журналісти",
+  "personas.analysts": "OSINT-аналітики",
+  "personas.ngos": "НУО",
+  "personas.gov": "Уряди",
+  "personas.security": "Безпекові компанії",
+  "personas.traders": "Трейдери",
+  "personas.humanitarian": "Гуманітарні організації",
+
+  "newsletter.eyebrow": "Розвідувальні брифінги",
+  "newsletter.title": "Будьте попереду подій",
+  "newsletter.body": "Верифіковані дайджести — щодня або щотижня, за регіоном чи темою. Без шуму.",
+
+  "partners.eyebrow": "Джерела даних та партнери",
+  "partners.label_sentinel": "Copernicus / Sentinel",
+  "partners.label_firms": "NASA FIRMS",
+  "partners.label_osm": "OpenStreetMap",
+  "partners.label_telegram": "Telegram",
+  "partners.label_deepstate": "DeepStateMAP",
+  "partners.label_isw": "ISW"
+}

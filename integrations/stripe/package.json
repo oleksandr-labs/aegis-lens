@@ -1,0 +1,15 @@
+{
+  "name": "@ua-map/stripe",
+  "version": "1.0.0",
+  "description": "Stripe billing for Aegis Lens — subscriptions, metered API/AI-token usage, Tax, Connect Express payouts, customer portal, idempotency, refunds/chargebacks, dunning, PCI scope minimization (Elements only).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

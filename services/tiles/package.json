@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/tiles",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ua-map/events": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

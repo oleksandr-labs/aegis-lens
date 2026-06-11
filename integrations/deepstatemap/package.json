@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/deepstatemap",
+  "version": "1.0.0",
+  "description": "DeepStateMAP frontline-position ingestion — daily GeoJSON snapshots, control polygons (controlled / contested / liberated), diff + changelog, historical playback, and Telegram commentary context. Most accurate public source of the Ukrainian frontline.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

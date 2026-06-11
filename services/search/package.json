@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/search",
+  "version": "1.0.0",
+  "description": "Hybrid search: BM25 (Elasticsearch) + dense (Qdrant) + geo (PostGIS), reranked.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

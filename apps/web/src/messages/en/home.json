@@ -1,0 +1,41 @@
+{
+  "hero.eyebrow": "AI-native OSINT intelligence",
+  "hero.title": "See what's happening. Verify before anyone else.",
+  "hero.subtitle": "Aegis Lens aggregates, verifies and visualizes real-time conflict, infrastructure and geopolitical intelligence — starting with Ukraine, scaling globally.",
+  "hero.cta_primary": "Open Live Map",
+  "hero.cta_secondary": "Request Enterprise Demo",
+
+  "trust.ingested": "Events ingested today",
+  "trust.sources": "Sources monitored",
+  "trust.countries": "Countries covered",
+
+  "how.title": "How it works",
+  "how.step1_title": "Ingest",
+  "how.step1_body": "Public sources — Telegram, satellite, AIS, ADS-B, news — normalized into one canonical event stream.",
+  "how.step2_title": "Verify",
+  "how.step2_body": "AI summarization with citations. Cross-source corroboration. Human-in-the-loop on high-impact events.",
+  "how.step3_title": "Visualize",
+  "how.step3_body": "Cinematic map with 15+ layers, timeline scrubbing, AI copilot, and a permalink for every event.",
+
+  "personas.title": "Built for the people who need it",
+  "personas.civilians": "Civilians",
+  "personas.journalists": "Journalists",
+  "personas.analysts": "OSINT Analysts",
+  "personas.ngos": "NGOs",
+  "personas.gov": "Governments",
+  "personas.security": "Security Firms",
+  "personas.traders": "Traders",
+  "personas.humanitarian": "Humanitarian Orgs",
+
+  "newsletter.eyebrow": "Intelligence briefs",
+  "newsletter.title": "Stay ahead of events",
+  "newsletter.body": "Verified intelligence digests — daily or weekly, by region or topic. No noise.",
+
+  "partners.eyebrow": "Data sources & partners",
+  "partners.label_sentinel": "Copernicus / Sentinel",
+  "partners.label_firms": "NASA FIRMS",
+  "partners.label_osm": "OpenStreetMap",
+  "partners.label_telegram": "Telegram",
+  "partners.label_deepstate": "DeepStateMAP",
+  "partners.label_isw": "ISW"
+}

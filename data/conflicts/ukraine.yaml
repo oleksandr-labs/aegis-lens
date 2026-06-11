@@ -1,0 +1,100 @@
+# Conflict instance: Russia–Ukraine War
+# Conforms to docs/editorial/conflict-framework.md v1.0
+
+framework_version: "1.0"
+slug: ukraine
+name_en: Russia–Ukraine War
+name_uk: Російсько-українська війна
+
+# ── 1. Scope ───────────────────────────────────────────────────────────────
+scope:
+  geographic:
+    bbox: [22.14, 44.38, 40.23, 52.38]   # Ukraine + adjacent strike origins
+    regions: [all_ukraine_oblasts, black_sea, azov_sea, border_russia]
+  temporal:
+    start: "2022-02-24"          # full-scale invasion (platform focus)
+    note: "Conflict origins 2014; platform coverage focuses on 2022+ full-scale war"
+    ongoing: true
+  parties:
+    - { side: ukraine, type: state, label_en: Ukraine, label_uk: Україна }
+    - { side: russia, type: state, label_en: Russia, label_uk: Росія }
+    - { side: russia, type: non_state, label_en: Affiliated PMCs, label_uk: Афілійовані ПВК }
+
+# ── 2. Status ──────────────────────────────────────────────────────────────
+status: active
+
+# ── 3. Source allow-list ───────────────────────────────────────────────────
+sources:
+  ukraine_side:
+    - { id: telegram_kpszsu, name: "Air Force of Ukraine", base_reliability: 0.9 }
+    - { id: telegram_dsns, name: "State Emergency Service", base_reliability: 0.88 }
+    - { id: telegram_dtek, name: "DTEK (energy)", base_reliability: 0.85 }
+  russia_side:
+    - { id: telegram_mod_ru, name: "Russian MoD", base_reliability: 0.4, note: "treat claims as contested" }
+  neutral:
+    - { id: nasa_firms, name: "NASA FIRMS", base_reliability: 0.95 }
+    - { id: sentinel_hub, name: "Sentinel Hub", base_reliability: 0.95 }
+    - { id: netblocks, name: "NetBlocks", base_reliability: 0.9 }
+    - { id: opensky_adsb, name: "OpenSky ADS-B", base_reliability: 0.92 }
+
+# ── 4. Source reputation overrides ─────────────────────────────────────────
+reputation_overrides:
+  - { source: telegram_mod_ru, casualty_claims: 0.2, territorial_claims: 0.25, note: "systematically inflated" }
+
+# ── 5. Disputed-territory display policy ───────────────────────────────────
+disputed_territory:
+  occupied_areas_rendering: hatched_overlay
+  border_style: dashed_neutral
+  label_policy: "Internationally recognised borders shown solid; control lines shown separately and dated"
+  no_de_facto_recognition: true
+
+# ── 6. Toponym & name-form policy ──────────────────────────────────────────
+toponyms:
+  canonical_standard: ukrainian_transliteration   # Kyiv not Kiev
+  examples:
+    - { canonical: Kyiv, deprecated: [Kiev] }
+    - { canonical: Kharkiv, deprecated: [Kharkov] }
+    - { canonical: Odesa, deprecated: [Odessa] }
+    - { canonical: Lviv, deprecated: [Lvov] }
+    - { canonical: Zaporizhzhia, deprecated: [Zaporozhye, Zaporizhia] }
+
+# ── 7. Per-side actor taxonomy ─────────────────────────────────────────────
+actor_taxonomy:
+  framing: "Aggressor (Russia) / defender (Ukraine) framing used where factually established and sourced"
+  false_equivalence: prohibited
+
+# ── 8. Civilian-safety ─────────────────────────────────────────────────────
+civilian_safety:
+  launch_point_precision: aggregated_only       # no near-real-time precise launch points
+  impact_precision_delay_minutes: 0             # impacts published once verified (safety info)
+  air_raid_priority: true
+
+# ── 9. Sensitive content ───────────────────────────────────────────────────
+sensitive_content:
+  casualty_imagery: blur_default_click_reveal
+  minor_faces: always_blur
+  pow_identification: prohibited_without_consent
+
+# ── 10. Editorial review board ─────────────────────────────────────────────
+review_board:
+  two_reviewer_rule_for: [missile_impact, mass_casualty, infrastructure_strike]
+  required_expertise: [ukrainian_language, russian_language, mil_osint]
+
+# ── 11. Launch criteria (all met) ──────────────────────────────────────────
+launch:
+  sources_per_side_min: 3
+  reviewers_min: 2
+  locales_ready: [uk, en]
+  toponym_policy_signed: true
+  guardrails_tuned: true
+  launched: true
+
+# ── 12. Kill / pause criteria ──────────────────────────────────────────────
+kill_criteria:
+  - source_pool_below_threshold
+  - reviewer_coverage_lost
+  - exporter_misuse_spike
+  - legal_safety_advisory
+
+# i18n
+locale_priority: [uk, en, ru]

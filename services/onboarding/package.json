@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/onboarding",
+  "version": "1.0.0",
+  "description": "Persona definitions, onboarding checklists, and per-persona default configurations.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

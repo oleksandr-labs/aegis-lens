@@ -1,0 +1,7 @@
+{
+  "name": "@ua-map/planet-labs",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "description": "Planet Labs commercial satellite imagery client (Phase 2)"
+}

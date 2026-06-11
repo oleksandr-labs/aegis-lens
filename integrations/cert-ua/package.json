@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/cert-ua",
+  "version": "1.0.0",
+  "description": "CERT-UA + SSSCIP cyber-incident ingestion — state CERT advisories, IOC extraction, CVE cross-reference, per-sector threat tagging. Retrospective feed (latency days, not seconds).",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

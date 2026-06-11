@@ -1,0 +1,86 @@
+# CODEOWNERS — Aegis Lens
+#
+# Auto-requests review from the owning team when a matching path changes.
+# Enforced via branch protection on `main` (required review from code owners).
+# See docs/engineering/code-review.md.
+#
+# Last matching pattern wins, so order from general → specific.
+# Replace the placeholder @aegis-lens/* teams with real GitHub teams.
+
+# ----- Default -----
+*                                   @aegis-lens/eng
+
+# ----- Frontend / web -----
+/apps/web/                          @aegis-lens/frontend
+
+# ----- Shared packages -----
+/packages/                          @aegis-lens/platform
+/packages/db/                       @aegis-lens/platform @aegis-lens/data
+/packages/event-schema/             @aegis-lens/data
+/packages/schema-registry/          @aegis-lens/data
+/packages/i18n-config/              @aegis-lens/frontend
+/packages/i18n-tools/               @aegis-lens/frontend
+/packages/sdk-ts/                   @aegis-lens/platform
+/packages/sdk-python/               @aegis-lens/platform
+/packages/plugin-sdk/               @aegis-lens/platform
+
+# ----- Schema (canonical event schema / taxonomy) -----
+/schema/                            @aegis-lens/data
+
+# ----- Data / ingest pipeline -----
+/services/ingest/                   @aegis-lens/data
+/services/data-quality/             @aegis-lens/data
+/services/anomaly/                  @aegis-lens/data
+/services/auto-tagging/             @aegis-lens/data
+/services/entity-extraction/        @aegis-lens/nlp
+/services/retraction/               @aegis-lens/data
+
+# ----- Geo / NLP / verify / AI -----
+/services/geo/                      @aegis-lens/geo
+/services/nlp/                      @aegis-lens/nlp
+/services/verify/                   @aegis-lens/verify
+/services/vision/                   @aegis-lens/nlp
+/services/misinfo/                  @aegis-lens/verify
+/services/prompts/                  @aegis-lens/nlp
+/services/travel-risk/              @aegis-lens/geo
+
+# ----- Safety / guardrails (senior review required, see code-review.md §6) -----
+/services/safety/                   @aegis-lens/safety @aegis-lens/eng-leads
+
+# ----- Access control (senior review required) -----
+/services/rbac/                     @aegis-lens/security @aegis-lens/eng-leads
+
+# ----- Product services -----
+/services/alerts/                   @aegis-lens/platform
+/services/aoi/                      @aegis-lens/platform
+/services/notebooks/                @aegis-lens/platform
+/services/reports/                  @aegis-lens/platform
+/services/search/                   @aegis-lens/platform
+/services/tiles/                    @aegis-lens/geo
+/services/notifications/            @aegis-lens/platform
+/services/webhooks/                 @aegis-lens/platform
+/services/rule-builder/             @aegis-lens/platform
+/services/onboarding/               @aegis-lens/platform
+
+# ----- Billing / metering (senior review required) -----
+/services/metering/                 @aegis-lens/billing @aegis-lens/eng-leads
+/services/experiments/              @aegis-lens/platform
+/services/flags/                    @aegis-lens/platform
+
+# ----- Integrations (source adapters) -----
+/integrations/                      @aegis-lens/data
+
+# ----- Layers registry -----
+/layers/                            @aegis-lens/geo
+
+# ----- Infrastructure (senior review required) -----
+/infra/                             @aegis-lens/infra @aegis-lens/eng-leads
+/infra/postgres/                    @aegis-lens/infra @aegis-lens/data
+/.github/                           @aegis-lens/infra
+
+# ----- Docs -----
+/docs/                              @aegis-lens/eng
+/docs/legal/                        @aegis-lens/legal @aegis-lens/eng-leads
+/docs/security/                     @aegis-lens/security
+/docs/adr/                          @aegis-lens/eng-leads
+/docs/rfc/                          @aegis-lens/eng-leads

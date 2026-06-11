@@ -1,0 +1,17 @@
+{
+  "name": "@ua-map/air-quality",
+  "version": "1.0.0",
+  "description": "Air quality integration — PurpleAir public sensors, EEA (European Environment Agency) AQI.",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/ingest": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

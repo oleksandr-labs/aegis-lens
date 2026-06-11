@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/ukrenergo",
+  "version": "1.0.0",
+  "description": "Ukrenergo + 24 regional oblenergo + Yasno/DTEK power-grid status — scheduled outages, emergency shutdowns, restoration ETAs. Feeds the power-outages fusion layer.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

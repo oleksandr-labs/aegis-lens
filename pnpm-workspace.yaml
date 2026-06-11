@@ -1,0 +1,7 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "schema"
+  - "services/*"
+  - "integrations/*"
+  - "layers"

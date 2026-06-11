@@ -1,0 +1,7 @@
+{
+  "name": "@ua-map/blacksky-capella",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "description": "BlackSky and Capella high-resolution SAR/optical imagery clients (Phase 3)"
+}

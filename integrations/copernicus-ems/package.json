@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/copernicus-ems",
+  "version": "1.0.0",
+  "description": "Copernicus Emergency Management Service (EMS) ingestion — Rapid Mapping activations (RSS + downloads), Risk & Recovery mapping portfolio, per-activation vector/raster outputs. Maps flood/fire/damage-assessment products into our canonical event/layer model. EMS products are public-domain (Copernicus open data) and highly citable.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

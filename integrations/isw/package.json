@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/isw",
+  "version": "1.0.0",
+  "description": "Institute for the Study of War (ISW) integration — daily Russian Offensive Campaign Assessment (ROCA) ingest, control-of-terrain map ingestion, entity extraction, and DeepStateMAP divergence cross-reference.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

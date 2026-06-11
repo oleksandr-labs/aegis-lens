@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/hajun-bypol",
+  "version": "1.0.0",
+  "description": "Hajun Project (BYPOL) ingestion — tracks Russian military presence and movement through Belarus (north flank). Telegram + website client, vetted-contributor OSINT registry with trust scoring, daily sighting/analysis ingest, BY rail-node/airbase geocoding, Sentinel-1 SAR cross-reference, equipment-model vision identification, equipment-movement timeline, and RU equipment-pool cross-reference. Source-protection by design: no deanonymisation of vetted contributors.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

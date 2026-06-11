@@ -1,0 +1,45 @@
+# Pre-commit hooks for Aegis Lens.
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # ── Secret scanning ─────────────────────────────────────────────────────────
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        args: ["--config", ".gitleaks.toml"]
+
+  # ── General hygiene ─────────────────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.(md|patch)$'
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+      - id: check-json
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  # ── TypeScript / lint (local) ───────────────────────────────────────────────
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint (changed files)
+        entry: pnpm exec eslint --fix
+        language: system
+        files: \.(ts|tsx|js|jsx)$
+        pass_filenames: true
+
+      - id: typecheck
+        name: typecheck (web app)
+        entry: pnpm --filter web typecheck
+        language: system
+        pass_filenames: false
+        files: \.(ts|tsx)$

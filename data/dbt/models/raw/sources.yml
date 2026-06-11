@@ -1,0 +1,61 @@
+version: 2
+
+sources:
+  - name: ingest
+    description: Raw ingest service output tables
+    database: aegis_lens
+    schema: raw
+    freshness:
+      warn_after: {count: 1, period: hour}
+      error_after: {count: 4, period: hour}
+    tables:
+      - name: events
+        description: Raw events as written by the ingest service
+        loaded_at_field: ingested_at
+        columns:
+          - name: event_id
+            description: ULID primary key
+            data_tests:
+              - unique
+              - not_null
+          - name: source_id
+            description: Source adapter identifier
+            data_tests:
+              - not_null
+          - name: class
+            description: Event class
+            data_tests:
+              - not_null
+              - accepted_values:
+                  values: ["military_action", "civilian_alert", "air_raid", "infrastructure_damage", "displacement", "comms_outage", "power_outage", "humanitarian_event", "environmental"]
+          - name: severity
+            description: Severity 1-5
+            data_tests:
+              - not_null
+          - name: confidence
+            description: Verification confidence 0-1
+            data_tests:
+              - not_null
+          - name: occurred_at
+            description: Event timestamp
+            data_tests:
+              - not_null
+
+  - name: users
+    description: User and org tables from the app database
+    database: aegis_lens
+    schema: app
+    tables:
+      - name: orgs
+        columns:
+          - name: org_id
+            data_tests: [unique, not_null]
+          - name: tier
+            data_tests:
+              - not_null
+              - accepted_values:
+                  values: ["free", "pro", "enterprise", "public"]
+      - name: users
+        columns:
+          - name: user_id
+            data_tests: [unique, not_null]

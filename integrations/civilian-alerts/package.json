@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/civilian-alerts",
+  "version": "1.0.0",
+  "description": "Ukraine civilian alert ingestion — air-raid sirens, all-oblast coverage, Ukraine Alarm API client.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

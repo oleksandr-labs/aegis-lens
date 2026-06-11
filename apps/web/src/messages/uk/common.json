@@ -1,0 +1,20 @@
+{
+  "nav.map": "Жива карта",
+  "nav.companies": "Компанії",
+  "nav.tools": "Інструменти",
+  "nav.reports": "Звіти",
+  "nav.briefs": "Розвідувальні брифи",
+  "nav.pricing": "Тарифи",
+  "nav.docs": "Документація",
+  "nav.about": "Про нас",
+  "nav.signin": "Увійти",
+  "nav.signup": "Реєстрація",
+
+  "footer.product": "Продукт",
+  "footer.resources": "Ресурси",
+  "footer.company": "Компанія",
+  "footer.legal": "Юридичне",
+  "footer.trust": "Довіра",
+  "footer.copyright": "© {year} Aegis Lens. Усі права захищено.",
+  "footer.tagline": "Розвідка зі швидкістю подій."
+}

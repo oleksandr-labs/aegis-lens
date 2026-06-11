@@ -1,0 +1,67 @@
+# Aegis Lens — local dev infrastructure.
+#
+# Bring everything up:
+#   docker compose up -d
+#
+# After Postgres is healthy, run migrations:
+#   DATABASE_URL=postgres://aegis:aegis@localhost:5432/aegis \
+#     pnpm --filter @aegis/db generate \
+#     && pnpm --filter @aegis/db migrate
+#
+# Sprint 1.4 ships this file. Sprint 2 wires the web app to read events
+# from Postgres instead of the in-memory seed.
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: aegis-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aegis
+      POSTGRES_PASSWORD: aegis
+      POSTGRES_DB: aegis
+    ports:
+      - "5432:5432"
+    volumes:
+      - aegis_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aegis -d aegis"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: aegis-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # MinIO — S3-compatible object store for media + raw archive.
+  minio:
+    image: minio/minio:latest
+    container_name: aegis-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: aegis
+      MINIO_ROOT_PASSWORD: aegis-dev-only
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - aegis_minio:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  aegis_pg:
+  aegis_minio:

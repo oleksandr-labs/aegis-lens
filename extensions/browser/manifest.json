@@ -1,0 +1,82 @@
+{
+  "manifest_version": 3,
+  "name": "Aegis Lens OSINT Companion",
+  "short_name": "Aegis Lens",
+  "version": "0.1.0",
+  "description": "One-click OSINT capture: save images, URLs and text directly to the Aegis Lens platform. Journalists and analysts.",
+  "homepage_url": "https://aegislens.com",
+
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png"
+    },
+    "default_title": "Aegis Lens"
+  },
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "storage",
+    "identity",
+    "clipboardRead"
+  ],
+
+  "host_permissions": [
+    "https://app.aegislens.com/*",
+    "https://api.aegislens.com/*"
+  ],
+
+  "externally_connectable": {
+    "matches": ["https://app.aegislens.com/*"]
+  },
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none';"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["content/inject.js", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
+  "commands": {
+    "capture-selection": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Capture selected text as Aegis Lens event draft"
+    },
+    "open-map": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M",
+        "mac": "Command+Shift+M"
+      },
+      "description": "Open current page location on Aegis Lens map"
+    }
+  }
+}

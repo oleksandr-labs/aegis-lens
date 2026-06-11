@@ -1,0 +1,17 @@
+{
+  "name": "@ua-map/webcam-privacy",
+  "version": "1.0.0",
+  "description": "Webcam privacy gate + frame sampling pipeline — civilian area exclusion, face blur, ToS review.",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ua-map/ingest": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

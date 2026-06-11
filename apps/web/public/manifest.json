@@ -1,0 +1,100 @@
+{
+  "name": "Aegis Lens",
+  "short_name": "Aegis Lens",
+  "description": "AI-native OSINT platform for Ukrainian conflict monitoring",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#1a2744",
+  "orientation": "portrait-primary",
+  "lang": "uk",
+  "dir": "ltr",
+  "categories": ["news", "security", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/map-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Map view with event layers"
+    },
+    {
+      "src": "/screenshots/map-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile map view"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Live Map",
+      "short_name": "Map",
+      "description": "Open the live conflict map",
+      "url": "/map",
+      "icons": [{ "src": "/icons/shortcut-map.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Search Events",
+      "short_name": "Search",
+      "description": "Search conflict events",
+      "url": "/search",
+      "icons": [{ "src": "/icons/shortcut-search.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Alerts",
+      "short_name": "Alerts",
+      "description": "Manage your alert rules",
+      "url": "/alerts",
+      "icons": [{ "src": "/icons/shortcut-alerts.png", "sizes": "96x96" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+aegis",
+      "url": "/open?url=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

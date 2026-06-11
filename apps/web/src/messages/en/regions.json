@@ -1,0 +1,9 @@
+{
+  "title": "{country}",
+  "description": "Real-time intelligence, verified events, and trends for {country}.",
+  "events.title": "Recent events",
+  "events.empty": "No events to display yet — data ingestion lands in Sprint 1.",
+  "sources.title": "Top sources",
+  "related.title": "Related regions",
+  "faq.title": "Frequently asked questions"
+}

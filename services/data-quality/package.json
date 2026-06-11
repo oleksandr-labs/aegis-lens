@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/data-quality",
+  "version": "1.0.0",
+  "description": "Per-source and per-pipeline data SLOs: freshness, completeness, schema conformance, silent-failure detection.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

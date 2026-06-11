@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/data-gov-ua",
+  "version": "1.0.0",
+  "description": "Ukrainian open-data + civic-tech ingestion — data.gov.ua (CKAN catalog: EDR, addresses, infrastructure), OpenDataBot + YouControl (company-registry enrichment), Texty.org.ua (data-journalism datasets), Prozorro (public procurement). Entity-resolution from ЄДРПОУ codes → KG enrichment of company/institution entities + investigation cross-links.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

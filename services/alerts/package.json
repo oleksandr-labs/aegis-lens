@@ -1,0 +1,14 @@
+{
+  "name": "@ua-map/alerts",
+  "version": "1.0.0",
+  "description": "Alerts & notifications service — rule engine, throttle/dedup, multi-channel delivery.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc", "test": "vitest run" },
+  "dependencies": {
+    "@ua-map/schema": "workspace:*",
+    "ulid": "^2.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": { "typescript": "^5.4.5", "vitest": "^1.6.0" }
+}

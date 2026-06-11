@@ -1,0 +1,48 @@
+{
+  "_comment": "Debezium PostgreSQL CDC connector for Aegis Lens",
+  "_docs": "https://debezium.io/documentation/reference/stable/connectors/postgresql.html",
+
+  "name": "aegis-postgres-cdc",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+
+    "database.hostname": "${env:POSTGRES_HOST}",
+    "database.port": "5432",
+    "database.user": "${env:DEBEZIUM_USER}",
+    "database.password": "${env:DEBEZIUM_PASSWORD}",
+    "database.dbname": "aegis",
+    "database.server.name": "aegis",
+
+    "plugin.name": "pgoutput",
+    "publication.name": "aegis_cdc_pub",
+    "slot.name": "aegis_debezium",
+
+    "table.include.list": "public.events,public.sources,public.aois,public.cases,public.alerts,public.notebooks",
+
+    "column.exclude.list": "public.events.raw_payload,public.events.summary_en,public.events.summary_uk",
+
+    "heartbeat.interval.ms": "10000",
+    "heartbeat.action.query": "UPDATE debezium_heartbeat SET ts = now() WHERE id = 1",
+
+    "transforms": "route,redactPii",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.redactPii.type": "io.debezium.transforms.ByLogicalTableRouter",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+
+    "topic.prefix": "aegis.cdc",
+    "topic.creation.enable": "true",
+    "topic.creation.default.replication.factor": "3",
+    "topic.creation.default.partitions": "6",
+    "topic.creation.default.cleanup.policy": "delete",
+    "topic.creation.default.retention.ms": "604800000",
+
+    "snapshot.mode": "initial",
+    "snapshot.locking.mode": "none",
+
+    "decimal.handling.mode": "double",
+    "binary.handling.mode": "base64",
+    "time.precision.mode": "adaptive_time_microseconds"
+  }
+}

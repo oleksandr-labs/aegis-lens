@@ -1,0 +1,8 @@
+{
+  "title": "Live Map",
+  "placeholder.title": "Map workspace — skeleton",
+  "placeholder.body": "Mapbox-ready surface. Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local to enable the base layer. Layers, filters, timeline, AI copilot wire up in Sprint 1.",
+  "layers.title": "Layers",
+  "filters.title": "Filters",
+  "copilot.title": "AI Copilot"
+}

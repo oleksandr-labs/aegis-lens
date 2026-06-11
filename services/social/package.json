@@ -1,0 +1,16 @@
+{
+  "name": "@ua-map/social",
+  "version": "1.0.0",
+  "description": "Social-media activity layer support: cross-layer misinfo linking and end-to-end latency SLO budgeting.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
