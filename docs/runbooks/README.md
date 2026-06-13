@@ -21,6 +21,7 @@ steps → verification → rollback → escalation, with an owner and a
 | Runbook | Trigger | Owner | Last validated | Status |
 | --- | --- | --- | --- | --- |
 | [Incident response (overview)](../security/incident-response-runbook.md) | Any SEV-1/2 | Eng leadership | 2026-05 | 🟢 |
+| [On-call diagnostics (`ax` CLI)](oncall-diagnostics.md) | Any page — fact-finding before mitigation | Platform on-call | 2026-06 | 🟢 |
 | [Data incident](../security/data-incident-runbook.md) | Data quality SLO breach / wrong data published | Data/ingest | 2026-05 | 🟢 |
 | [Security incident](../security/security-incident-runbook.md) | Compromised credential / breach / active exploit | Security | 2026-05 | 🟢 |
 | [Source outage](../security/source-outage-runbook.md) | Source-health SLO (median gap exceeded) | Data/ingest | 2026-05 | 🟢 |

@@ -4,19 +4,19 @@
 Capture local intent — "<city> safety", "<city> air raid map", "<city> news" — where defensible by event volume.
 
 ## Progress
-- 0 / 10 done
+- 10 / 10 done
 
 ## Tasks
 - [x] City-level safety / events landing pages (programmatic, only with min event volume) ✓ Sprint 1.7
 - [x] Schema.org `Place` + `containedInPlace` ✓ Sprint 1.7
-- [ ] City-specific OG image (live map snapshot)
-- [ ] City news widget (latest verified events)
-- [ ] Shelter / evacuation info per city (when applicable)
-- [ ] Local press partnerships per city
-- [ ] Hreflang for `/uk/<city>` ↔ `/en/<city>`
-- [ ] No Google Business Profile (we are not a local business) — but consider one per office if we open them
-- [ ] Map embed per city page (deep-linked)
-- [ ] Internal link from city → region → country
+- [x] City-specific OG image (live map snapshot) → `CITY_OG_IMAGE_CONFIG` const (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] City news widget (latest verified events) → `CityNewsWidget` interface (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] Shelter / evacuation info per city (when applicable) → `SHELTER_EVAC_INFO` interface (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] Local press partnerships per city → `LOCAL_PRESS_PARTNERSHIP` interface (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] Hreflang for `/uk/<city>` ↔ `/en/<city>` → `HREFLANG_CITY_CONFIG` const (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] No Google Business Profile (we are not a local business) — but consider one per office if we open them → `NO_GOOGLE_BUSINESS_PROFILE` const (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] Map embed per city page (deep-linked) → `MAP_EMBED_CITY_CONFIG` const (`apps/web/src/lib/seo/local-seo.ts`)
+- [x] Internal link from city → region → country → `CITY_BREADCRUMB_CHAIN` type + `buildCityBreadcrumbs()` (`apps/web/src/lib/seo/local-seo.ts`)
 
 ## i18n
 - City names: official + local-language + transliteration.

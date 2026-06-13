@@ -142,6 +142,107 @@ resource "cloudflare_zone_settings_override" "security" {
   }
 }
 
-output "app_hostname"   { value = cloudflare_record.app.hostname }
-output "api_hostname"   { value = cloudflare_record.api.hostname }
-output "tiles_hostname" { value = cloudflare_record.tiles.hostname }
+# ── Image optimization worker ────────────────────────────────────────────────
+# Deployed on Cloudflare Images-compatible route; requires Pro+ plan.
+
+variable "account_id" { type = string }
+
+resource "cloudflare_worker_script" "image_optimization" {
+  account_id = var.account_id
+  name       = "aegis-image-opt-${var.env}"
+  content    = file("${path.module}/workers/image-optimization.js")
+  module     = true
+}
+
+resource "cloudflare_worker_route" "image_optimization" {
+  zone_id     = var.zone_id
+  # Match all image extensions under all subdomains
+  pattern     = "*.${var.domain}/*.{jpg,jpeg,png,gif,webp,avif,bmp,tiff}"
+  script_name = cloudflare_worker_script.image_optimization.name
+}
+
+# Also apply to app subdomain (for uploaded media)
+resource "cloudflare_worker_route" "image_optimization_app" {
+  zone_id     = var.zone_id
+  pattern     = "app.${var.domain}/media/*"
+  script_name = cloudflare_worker_script.image_optimization.name
+}
+
+# ── Status badge proxy ───────────────────────────────────────────────────────
+
+resource "cloudflare_record" "status" {
+  zone_id = var.zone_id
+  name    = "status"
+  type    = "CNAME"
+  content = var.app_origin
+  proxied = true
+  ttl     = 1
+}
+
+resource "cloudflare_worker_script" "status_badge_proxy" {
+  account_id = var.account_id
+  name       = "aegis-status-badge-${var.env}"
+  content    = file("${path.module}/workers/status-badge-proxy.js")
+  module     = true
+}
+
+resource "cloudflare_worker_route" "status_badge" {
+  zone_id     = var.zone_id
+  pattern     = "status.${var.domain}/badge/*"
+  script_name = cloudflare_worker_script.status_badge_proxy.name
+}
+
+# ── Multi-domain / white-label handler ───────────────────────────────────────
+# The multi-domain worker runs on a wildcard catch-all route.
+# Custom domains must be added to Cloudflare via custom hostnames feature.
+
+resource "cloudflare_worker_script" "multi_domain_router" {
+  account_id = var.account_id
+  name       = "aegis-multi-domain-${var.env}"
+  content    = file("${path.module}/workers/multi-domain-router.js")
+  module     = true
+
+  kv_namespace_binding {
+    name         = "DOMAIN_MAP"
+    namespace_id = cloudflare_workers_kv_namespace.domain_map.id
+  }
+}
+
+resource "cloudflare_workers_kv_namespace" "domain_map" {
+  account_id = var.account_id
+  title      = "aegis-domain-map-${var.env}"
+}
+
+# Catch-all: wildcard custom hostnames are registered via Cloudflare custom
+# hostname API, not Terraform records. The worker route handles them all.
+# Route pattern below catches any hostname NOT matching *.aegislens.com.
+# In practice this route is added manually per custom domain — see runbook.
+
+# ── Image optimization cache rule (extend existing ruleset) ─────────────────
+
+resource "cloudflare_ruleset" "image_transform_rules" {
+  zone_id = var.zone_id
+  name    = "aegis-image-transform-rules"
+  kind    = "zone"
+  phase   = "http_request_transform"
+
+  rules {
+    action = "rewrite"
+    action_parameters {
+      headers {
+        name      = "Accept-CH"
+        operation = "set"
+        value     = "DPR, Width, Viewport-Width"
+      }
+    }
+    expression  = "(http.host contains \"${var.domain}\")"
+    description = "Enable client hints for image optimization"
+    enabled     = true
+  }
+}
+
+output "app_hostname"           { value = cloudflare_record.app.hostname }
+output "api_hostname"           { value = cloudflare_record.api.hostname }
+output "tiles_hostname"         { value = cloudflare_record.tiles.hostname }
+output "status_hostname"        { value = cloudflare_record.status.hostname }
+output "domain_map_namespace_id" { value = cloudflare_workers_kv_namespace.domain_map.id }

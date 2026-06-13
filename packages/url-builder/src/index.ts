@@ -399,6 +399,7 @@ export function absoluteUrl(siteUrl: string, path: string): string {
 
 import { LOCALES } from "@aegis/types";
 
+
 /**
  * Generate `<link rel="alternate" hreflang>` entries for every locale variant
  * of the given path-builder function.
@@ -417,3 +418,9 @@ export function hreflangs(
   entries.push({ hreflang: "x-default", href: absoluteUrl(siteUrl, pathFor(DEFAULT_LOCALE)) });
   return entries;
 }
+
+// ---------- Extensions ----------
+
+export * from "./slug-extensions";
+export * from "./canonical";
+export * from "./locale-url";

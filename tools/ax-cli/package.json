@@ -1,0 +1,11 @@
+{
+  "name": "@ua-map/ax-cli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ax — internal on-call diagnostic CLI for Aegis Lens incidents.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "bin": { "ax": "./src/cli.ts" },
+  "scripts": { "typecheck": "tsc --noEmit" },
+  "devDependencies": { "typescript": "^5.4.5" }
+}

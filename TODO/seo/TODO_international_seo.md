@@ -4,7 +4,7 @@
 Rank in every supported locale, with correct hreflang, geo-targeting, and culturally adapted content.
 
 ## Progress
-- 11 / 14 done
+- 14 / 14 done (Sprint 2.73)
 
 ## Tasks
 
@@ -22,7 +22,7 @@ Rank in every supported locale, with correct hreflang, geo-targeting, and cultur
 ### Per-locale optimization
 - [x] Per-locale keyword research (separate clusters per language — not direct translations) — apps/web/src/lib/seo/locale-keywords.ts (LOCALE_KEYWORD_CLUSTERS, getKeywordsForLocale)
 - [x] Per-locale metadata templates — apps/web/src/lib/seo/locale-keywords.ts (buildLocaleMetaTemplate, all 8 locales)
-- [ ] Per-locale internal links (don't cross-link locales)
+- [x] Per-locale internal links (don't cross-link locales) ✓ Sprint 2.73 — `locale-internal-links.ts`: `buildLocaleInternalLinks()` (same-locale only, template/tag scored), `validateNoLocaleLeakage()` (CI validator), `toLocaleUrl()`, `buildLocalePageMap()`
 - [x] Per-locale sitemaps — apps/web/src/lib/seo/locale-sitemaps.ts (LOCALE_SITEMAP_CONFIGS, buildLocaleSitemapIndex)
 - [x] Search Console properties per locale — apps/web/src/lib/seo/locale-sitemaps.ts (SEARCH_CONSOLE_PROPERTIES)
 

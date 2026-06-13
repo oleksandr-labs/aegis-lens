@@ -4,7 +4,7 @@
 Decouple deploy from release. Per-org / per-user / per-cohort rollout. Kill switch on every risky feature.
 
 ## Progress
-- 9 / 10 done (Sprint 2.60)
+- 10 / 10 done
 
 ## Tasks
 - [x] Provider: Unleash (self-hosted) or LaunchDarkly ✓ Sprint 2.60 — local flag system (lib/feature-flags.ts), provider integration pending
@@ -14,7 +14,7 @@ Decouple deploy from release. Per-org / per-user / per-cohort rollout. Kill swit
 - [x] Percentage rollouts with sticky bucketing — `stableHash()` (SHA-256 of `flagKey:userId`) in evaluator.ts
 - [x] Kill switches surfaced in admin panel ✓ Sprint 2.60 — admin flags page + emergency disable-all kill switch
 - [x] Flag-cleanup ticket auto-created on long-lived flags (>90d) — `getSunsetWarnings()` in FlagRegistry
-- [ ] Flag → metric linkage (effect on north-star metric tracked)
+- [x] Flag → metric linkage (effect on north-star metric tracked) — `services/flags/src/metric-linkage.ts`: `FlagMetricRegistry` (link/getLink/listFlagsWithGuardrails/listUnlinkedFlagKeys); `recordFlagExposure()` for attribution; `FlagMetricSnapshot` ingestion; `computeFlagMetricEffect()` (z-test, relative lift, guardrail breach detection, MDE check); normal CDF via Abramowitz & Stegun approximation
 - [x] Local-dev override panel ✓ Sprint 2.60 — DevFlagsPanel (floating 🚩, localStorage overrides)
 - [x] Audit log of flag changes — `FlagChangeEvent[]` in `InMemoryFlagStore.getAuditLog()`
 
