@@ -25,3 +25,6 @@ Remaining 6 doc-type tasks shipped in `docs/a11y/accessibility.md §Part 1`. Per
 
 ### Примітки
 A VPAT is a sales requirement for US gov / education.
+
+### Gap flagged 2026-07-12 (round 3 content-gap pass)
+- [ ] The VPAT exists only as an internal doc artifact (`docs/a11y/accessibility.md §1.7`) — publish a public-facing `/accessibility-statement` page (conformance level, known limitations, contact for accessibility issues, last-review date). No public route currently exists under `apps/web/src/app`. Low effort — content already written, just needs a public page wrapper + link from footer.

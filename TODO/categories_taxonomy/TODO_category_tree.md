@@ -25,3 +25,11 @@ Hierarchical category taxonomy — top → sub → micro. SEO + filter + KG simu
 
 ### Примітки
 Taxonomy = filter UI + URL structure + KG facets. Lock early.
+
+### Gaps flagged 2026-07-12 (content-gap analysis pass)
+Existing "Politics & Diplomacy" sub-categories (Treaties/Sanctions/Visits/Statements/Recognition/Elections/Coups) have no entry for negotiation processes. Existing top-level tree also has no accountability/recovery branch. Proposed additions:
+- [ ] Add sub-category `negotiations` / `ceasefire_talks` under **Politics & Diplomacy** — feeds [topical_hubs/TODO_hub_peace_diplomacy.md](../topical_hubs/TODO_hub_peace_diplomacy.md)
+- [ ] Add sub-category `war_crimes_accountability` under **Politics & Diplomacy** (or new top-level `Accountability & Justice` if node count under Politics grows past 10) — feeds [topical_hubs/TODO_hub_war_crimes.md](../topical_hubs/TODO_hub_war_crimes.md)
+- [ ] Add sub-category `reconstruction_recovery` under **Infrastructure** — feeds [topical_hubs/TODO_hub_reconstruction.md](../topical_hubs/TODO_hub_reconstruction.md)
+- [ ] Add sub-category `international_aid` under **Economy & Sanctions** — feeds [topical_hubs/TODO_hub_international_aid.md](../topical_hubs/TODO_hub_international_aid.md)
+- [ ] Add micro-category `pow_detainee_exchange` under **Humanitarian** — feeds [topical_hubs/TODO_hub_pow_exchange.md](../topical_hubs/TODO_hub_pow_exchange.md)
